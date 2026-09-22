@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CalcAI — Intelligent Calculator Agent</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">∑</div>
+            <div>
+                <h2>Calc<span>AI</span></h2>
+                <p>Intelligent Agent</p>
+            </div>
+        </div>
+
+        <button class="new-chat" onclick="newChat()">
+            <span>＋</span> New Calculation
+        </button>
+
+        <div class="side-section">
+            <p class="section-title">TOOLS</p>
+
+            <div class="side-item active">
+                <span>⌁</span>
+                AI Calculator
+            </div>
+
+            <div class="side-item">
+                <span>%</span>
+                Percentage
+            </div>
+
+            <div class="side-item">
+                <span>₹</span>
+                GST & Finance
+            </div>
+
+            <div class="side-item">
+                <span>∿</span>
+                Scientific
+            </div>
+        </div>
+
+        <div class="side-section">
+            <p class="section-title">RECENT</p>
+
+            <div class="history-mini">
+                <span>▸</span>
+                18% GST calculation
+            </div>
+
+            <div class="history-mini">
+                <span>▸</span>
+                Profit percentage
+            </div>
+
+            <div class="history-mini">
+                <span>▸</span>
+                Monthly EMI
+            </div>
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="agent-card">
+                <div class="agent-avatar">
+                    ✦
+                </div>
+
+                <div>
+                    <strong>CalcAI Agent</strong>
+                    <small><span class="online-dot"></span> Online</small>
+                </div>
+
+                <button>•••</button>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <div>
+                <h1>AI Calculator</h1>
+                <p>Ask anything. I'll calculate it for you.</p>
+            </div>
+
+            <div class="top-actions">
+
+                <button class="icon-btn" title="History">
+                    ◷
+                </button>
+
+                <button class="icon-btn" title="Settings">
+                    ⚙
+                </button>
+
+                <div class="profile">
+                    S
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+        <section class="content">
+
+            <!-- AGENT HERO -->
+            <div class="hero">
+
+                <div class="agent-glow">
+                    <div class="big-agent">
+                        ✦
+                    </div>
+                </div>
+
+                <div class="hero-text">
+
+                    <div class="status">
+                        <span></span>
+                        AI AGENT ONLINE
+                    </div>
+
+                    <h2>
+                        What would you like<br>
+                        <span>me to calculate?</span>
+                    </h2>
+
+                    <p>
+                        I understand natural language, solve complex calculations,
+                        and explain every step.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- CALCULATOR CARD -->
+            <div class="calculator-card">
+
+                <div class="input-area">
+
+                    <div class="input-top">
+                        <span>YOUR QUERY</span>
+                        <span class="shortcut">⌘ Enter</span>
+                    </div>
+
+                    <textarea
+                        id="query"
+                        placeholder="Try: Calculate 18% GST on ₹5000..."
+                        onkeydown="handleKey(event)"
+                    ></textarea>
+
+                    <div class="input-bottom">
+
+                        <div class="suggestions">
+
+                            <button onclick="setQuery('Calculate 18% GST on ₹5000')">
+                                <span>₹</span> GST
+                            </button>
+
+                            <button onclick="setQuery('Calculate 20% discount on ₹2500')">
+                                <span>%</span> Discount
+                            </button>
+
+                            <button onclick="setQuery('Calculate 15% of 800')">
+                                <span>⌁</span> Percentage
+                            </button>
+
+                            <button onclick="setQuery('Calculate 25 × 48 + 150')">
+                                <span>∑</span> Math
+                            </button>
+
+                        </div>
+
+                        <button class="calculate-btn" onclick="calculate()">
+                            Calculate
+                            <span>→</span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESULT -->
+            <div id="result-card" class="result-card hidden">
+
+                <div class="result-header">
+
+                    <div class="result-title">
+                        <div class="small-agent">✦</div>
+
+                        <div>
+                            <strong>CalcAI Agent</strong>
+                            <span>Calculation completed</span>
+                        </div>
+                    </div>
+
+                    <button onclick="copyResult()" class="copy-btn">
+                        ⧉ Copy
+                    </button>
+
+                </div>
+
+                <div id="result-content"></div>
+
+            </div>
+
+
+            <!-- QUICK TOOLS -->
+            <div class="quick-section">
+
+                <div class="section-heading">
+                    <div>
+                        <h3>Quick Tools</h3>
+                        <p>Choose a calculation type</p>
+                    </div>
+                </div>
+
+                <div class="tool-grid">
+
+                    <div class="tool-card" onclick="setQuery('Calculate 18% GST on ₹10000')">
+                        <div class="tool-icon gst">₹</div>
+                        <div>
+                            <h4>GST Calculator</h4>
+                            <p>Calculate GST instantly</p>
+                        </div>
+                        <span class="arrow">→</span>
+                    </div>
+
+                    <div class="tool-card" onclick="setQuery('Calculate 25% discount on ₹5000')">
+                        <div class="tool-icon discount">%</div>
+                        <div>
+                            <h4>Discount</h4>
+                            <p>Find final selling price</p>
+                        </div>
+                        <span class="arrow">→</span>
+                    </div>
+
+                    <div class="tool-card" onclick="setQuery('Calculate profit percentage if cost price is 5000 and selling price is 6500')">
+                        <div class="tool-icon profit">↗</div>
+                        <div>
+                            <h4>Profit & Loss</h4>
+                            <p>Analyze your margins</p>
+                        </div>
+                        <span class="arrow">→</span>
+                    </div>
+
+                    <div class="tool-card" onclick="setQuery('Calculate EMI for a loan of ₹500000 at 8% annual interest for 5 years')">
+                        <div class="tool-icon emi">◫</div>
+                        <div>
+                            <h4>EMI Calculator</h4>
+                            <p>Estimate monthly payments</p>
+                        </div>
+                        <span class="arrow">→</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FEATURES -->
+            <div class="features">
+
+                <div class="feature">
+                    <div class="feature-icon">✦</div>
+                    <div>
+                        <strong>Natural Language</strong>
+                        <p>Ask calculations like you're talking to a person.</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">✓</div>
+                    <div>
+                        <strong>Step-by-Step</strong>
+                        <p>Understand exactly how the answer was calculated.</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <div>
+                        <strong>Instant Results</strong>
+                        <p>Fast and accurate calculations every time.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer>
+            <span>CalcAI v1.0</span>
+            <span>Built with intelligence ✦</span>
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
